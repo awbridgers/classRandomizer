@@ -2,11 +2,20 @@ body{
 background-color: black;
 color: white;
 }
+table{
+  width:300px;
+    height:300px;
+    position:absolute;
+    margin-left:-150px; /* half of width */
+    margin-top:-150px;  /* half of height */
+    top:30%;
+    left:50%
+}
 
 #submitButton{
   margin: auto;
   position: absolute;
-  top: 50%;
+  top: 70%;
   left: 50%;
 }
 #searchType{

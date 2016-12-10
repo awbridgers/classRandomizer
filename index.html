@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
-    <title>Bing It!</title>
+    <title>Class Randomizer</title>
     <!-- <embed src="rstheme.mp3" autostart="true" loop="true"></embed> -->
     <link href="css.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -21,6 +21,35 @@
   </head>
 
 <body>
+  <table class = "table">
+    <tbody>
+      <tr>
+        <td>Primary: </td><td id = "primary">TEST</td><td id = "attach1">TEST</td><td id="attach2">TEST</td>
+      </tr>
+      <tr>
+        <td>Secondary: </td><td id = "secondary">TEST</td><td id = "SECattach1">TEST</td><td id="SECattach2">TEST</td>
+      </tr>
+      <tr>
+        <td>Special Grenade: </td><td id = "specGrenade">TEST</td>
+      </tr>
+      <tr>
+        <td>Equipment: </td><td id = "equipment">TEST</td>
+      </tr>
+      <tr>
+        <td>Perk 1: </td><td id = "perk1">TEST</td>
+      </tr>
+      <tr>
+        <td>Perk 2: </td><td id = "perk2">TEST</td>
+      </tr>
+      <tr>
+        <td>Perk 3: </td><td id = "perk3">TEST</td>
+      </tr>
+      <tr>
+        <td>Death Streak: </td><td id = "deathStreak">TEST</td>
+      </tr>
+    </tbody>
+  </table>
+
   <button type="button" id="submitButton"  onclick="randomize()">Randomize!</button></p>
   <script>
 
@@ -29,9 +58,75 @@
 
   //******* DON'T FORGET THE RIOT SHIELD IN THE ARRAY OF ALL THE PRIMARIES*******
 
-  function gunClass (name, type){
+  var primaries =[];
+  var secondaries =[];
+  var attachNum =1;
+function randomize() {
+  setUp();
+  //readArray(secondaries);
+
+
+
+
+
+
+};
+
+
+
+function setUp() {
+  //Eventally this will be added to an "onload event" but for testing its on button click for now
+  //setup the primaries array
+  for(i=0; i<assaultRifles.length;i++){
+      var temp = new gunClass (assaultRifles[i], "Assault");
+      primaries.push(temp);
+      }
+  for(i=0; i<subMachineGuns.length;i++){
+      var temp = new gunClass (subMachineGuns[i], "SMG");
+      primaries.push(temp);
+      }
+  for(i=0; i<lightMachineGuns.length;i++){
+      var temp = new gunClass (lightMachineGuns[i], "LMG");
+      primaries.push(temp);
+      }
+  for(i=0; i<sniperRifles.length;i++){
+      var temp = new gunClass (sniperRifles[i], "Sniper");
+      primaries.push(temp);
+      }
+  var temp = new gunClass ("Riot Shield", "Riot Shield");               //Don't forget riot shield!
+    primaries.push(temp);
+
+//setup the secondaries ARRAY
+  for(i=0; i<pistols.length;i++){
+      var temp = new gunClass (pistols[i], "Pistol");
+      secondaries.push(temp);
+    }
+  for(i=0; i<machinePistols.length;i++){
+      var temp = new gunClass (machinePistols[i], "Machine Pistol");
+      secondaries.push(temp);
+      }
+  for(i=0; i<shotguns.length;i++){
+      var temp = new gunClass (shotguns[i], "Shotgun");
+      secondaries.push(temp);
+    }
+  for(i=0; i<launchers.length;i++){
+      var temp = new gunClass (launchers[i], "Launcher");
+      secondaries.push(temp);
+    }
+
+};
+
+function gunClass (name, type){
     this.name = name;
     this. type = type;
+  };
+
+
+  function readArray(xxx){
+    for (i=0; i<xxx.length; i++){
+      var temp = xxx[i].name + " "+ xxx[i].type;
+      console.log(temp);
+    }
   }
 
 
@@ -50,7 +145,7 @@
 var subMachineGuns = [
     "Mini Uzi",
     "MP5K",
-    "UMP 45"
+    "UMP 45",
     "Vector",
     "P90"
 ];
@@ -134,3 +229,35 @@ var attachments = [
   "Grip",
   "Rapid Fire",
 ];
+
+var perk1 = [
+  "Marathon",
+  "Sleight of Hand",
+  "Scavenger",
+  "Bling",
+  "One Man Army"
+];
+
+var perk2 = [
+  "Stopping Power",
+  "Danger Close",
+  "Cold Blooded",
+  "Hardline",
+  "Lightweight"
+];
+
+var perk3 = [
+  "Ninja",
+  "Scrambler",
+  "Steady Aim",
+  "Last Stand",
+  "Commando"
+];
+
+var deathStreak = [
+  "Copy Cat",
+  "Painkillers",
+  "Martyrdom",
+  "Final Stand"
+];
+</script>
