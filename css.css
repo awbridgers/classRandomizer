@@ -1,6 +1,6 @@
 body{
-  background: url("background2.png") no-repeat fixed center;
-  background-size: cover;
+background-color: black;
+color: white;
 }
 
 #submitButton{
