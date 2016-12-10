@@ -21,5 +21,116 @@
   </head>
 
 <body>
-  <button type="button" id="submitButton"  onclick="doSearches()">Randomize!</button></p>
+  <button type="button" id="submitButton"  onclick="randomize()">Randomize!</button></p>
   <script>
+
+  //Since each type of gun has different attachments, I suggest we make a class of gun with the
+  //the gun name, its type (assaul, sub, etc.) so that we can give it the right attachments.
+
+  //******* DON'T FORGET THE RIOT SHIELD IN THE ARRAY OF ALL THE PRIMARIES*******
+
+  function gunClass (name, type){
+    this.name = name;
+    this. type = type;
+  }
+
+
+  var assaultRifles = [
+    "M4A1",
+    "FAMAS",
+    "SCAR-H",
+    "TAR-21",
+    "FN FAL",
+    "M16A4",
+    "ACR",
+    "F2000",
+    "AK-47"
+];
+
+var subMachineGuns = [
+    "Mini Uzi",
+    "MP5K",
+    "UMP 45"
+    "Vector",
+    "P90"
+];
+
+var sniperRifles = [
+"Intervention",
+"Barrett",
+"WA2000",
+"M21 EBR"
+];
+
+var lightMachineGuns = [
+"L86 LSW",
+"RPD",
+"MG4",
+"AUG HBAR",
+"M240"
+];
+
+var shotguns = [
+"SPAS-12",
+"AA-12",
+"Striker",
+"Ranger",
+"M1014",
+"Model 1887"
+];
+
+var pistols = [
+"USP .45",
+"Colt .44 Magnum",
+"M9",
+"M1911",
+"Desert Eagle"
+];
+
+var machinePistols = [
+"Glock 18",
+"PP-2000",
+"TMP",
+"M93 Raffica",
+];
+
+var launchers = [
+  "AT4",
+  "Thumper",
+  "Stinger",
+  "RPG",
+  "Javelin",
+];
+
+
+var specialGrenade = [
+    "Flashbang",
+    "Stun Grenade",
+    "Smoke Grenade",
+  ];
+
+  var equipment = [
+    "Frag Grenades",
+    "Semtex",
+    "Claymore",
+    "C4",
+    "Tactical Insertion",
+    "Blast Shield",
+    "Throwing Knife"
+];
+
+var attachments = [
+  "Akimbo",
+  "Grenade Launcher",
+  "Red Dot Sight",
+  "Silencer",
+  "ACOG Scope",
+  "FMJ",
+  "Shotgun",
+  "Holographic Sight",
+  "Heartbeat Sensor",
+  "Thermal Scope",
+  "Extended Magazines",
+  "Grip",
+  "Rapid Fire",
+];
