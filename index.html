@@ -16,8 +16,6 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/Bing.js"></script>
 
-
-
   </head>
 
 <body>
@@ -30,10 +28,10 @@
         <td>Secondary: </td><td id = "secondary">TEST</td><td id = "SECattach0">TEST</td><td id="SECattach1">TEST</td>
       </tr>
       <tr>
-        <td>Special Grenade: </td><td id = "specGrenade">TEST</td>
+        <td>Equipment: </td><td id = "equipment">TEST</td>
       </tr>
       <tr>
-        <td>Equipment: </td><td id = "equipment">TEST</td>
+        <td>Special Grenade: </td><td id = "specGrenade">TEST</td>
       </tr>
       <tr>
         <td>Perk 1: </td><td id = "perk1">TEST</td>
@@ -52,6 +50,11 @@
 
   <button type="button" id="submitButton"  onclick="randomize()">Randomize!</button></p>
   <script>
+    'use strict';
+
+    $(document).ready(() => {
+      setUp();
+    });
 
   //Since each type of gun has different attachments, I suggest we make a class of gun with the
   //the gun name, its type (assaul, sub, etc.) so that we can give it the right attachments.
@@ -62,7 +65,6 @@
   var secondaries =[];
   var attachNum =1;
 function randomize() {
-  setUp();
   //readArray(secondaries);
 
   //since the number of attatchments depends on whether of not perk 1 is bling, lets start with perks
@@ -117,7 +119,7 @@ function randomize() {
 
 var AttLocation =[];
 
-  for(i=0; i<attachNum; i++){
+  for(let i=0; i<attachNum; i++){
       var element = "attach" + i;
       var att = attType[Math.floor(Math.random() * attType.length)]
       if(sights.indexOf(att)>=0){
@@ -126,17 +128,16 @@ var AttLocation =[];
       else if (underBelly.indexOf(att)>=0){
         AttLocation[i] = "Under Belly";
       }
-      while(AttLocation[0]=== AttLocation[1]){
-        var att = attType[Math.floor(Math.random() * attType.length)]
-        if(sights.indexOf(att)>=0){
-          AttLocation[i] = "Sight";
-        }
-        else if (underBelly.indexOf(att)>=0){
-          AttLocation[i] = "Under Belly";
-        }
-
-      }
       document.getElementById(element).innerHTML = att;
+  }
+
+  if (attachNum === 2 && AttLocation[0] === AttLocation[1]){
+    let tempAttLoc = AttLocation[0];
+    if (tempAttLoc === "Sight") {
+      AttLocation[1] = "Under Belly";
+    } else {
+      (tempAttLoc === "Sight");
+    }
   }
 
 var secondaryWeapon = secondaries[Math.floor(Math.random() * secondaries.length)];
@@ -163,15 +164,16 @@ var secAttType;
   }
   else if (secondaryType === "Launcher"){                             //if Launcher set Attachment back to default
     document.getElementById("SECattach0").innerHTML = "TEST";
-    document.getElementsById("SECattach1").innerHTML = "TEST";
+    document.getElementById("SECattach1").innerHTML = "TEST";
   }
 
 
-
-  for(i=0; i<attachNum; i++){
-      var element = "SECattach" + i;
-      document.getElementById(element).innerHTML = secAttType[Math.floor(Math.random() * secAttType.length)]
-    }
+  if (secondaryType !== "Launcher") {
+    for(let i=0; i<attachNum; i++){
+        var element = "SECattach" + i;
+        document.getElementById(element).innerHTML = secAttType[Math.floor(Math.random() * secAttType.length)]
+      }
+  }
 
 
 
@@ -182,19 +184,19 @@ var secAttType;
 function setUp() {
   //Eventally this will be added to an "onload event" but for testing its on button click for now
   //setup the primaries array
-  for(i=0; i<assaultRifles.length;i++){
+  for(let i=0; i<assaultRifles.length;i++){
       var temp = new gunClass (assaultRifles[i], "Assault");
       primaries.push(temp);
       }
-  for(i=0; i<subMachineGuns.length;i++){
+  for(let i=0; i<subMachineGuns.length;i++){
       var temp = new gunClass (subMachineGuns[i], "SMG");
       primaries.push(temp);
       }
-  for(i=0; i<lightMachineGuns.length;i++){
+  for(let i=0; i<lightMachineGuns.length;i++){
       var temp = new gunClass (lightMachineGuns[i], "LMG");
       primaries.push(temp);
       }
-  for(i=0; i<sniperRifles.length;i++){
+  for(let i=0; i<sniperRifles.length;i++){
       var temp = new gunClass (sniperRifles[i], "Sniper");
       primaries.push(temp);
       }
@@ -202,7 +204,7 @@ function setUp() {
     primaries.push(temp);
 
 //setup the secondaries ARRAY
-  for(i=0; i<pistols.length;i++){
+  for(let i=0; i<pistols.length;i++){
     if(pistols[i] != "Colt .44 Magnum" && pistols[i]!= "Desert Eagle"){
         var temp = new gunClass (pistols[i], "Pistol");
         secondaries.push(temp);
@@ -212,12 +214,12 @@ function setUp() {
       secondaries.push(temp);
       }
     }
-  for(i=0; i<machinePistols.length;i++){
+  for(let i=0; i<machinePistols.length;i++){
       var temp = new gunClass (machinePistols[i], "Machine Pistol");
       secondaries.push(temp);
       }
-  for(i=0; i<shotguns.length;i++){
-    if(shotguns[i]!= "Ranger" && shotguns[i] != "Model 1887"){
+  for(let i=0; i<shotguns.length;i++){
+    if(shotguns[i]!== "Ranger" && shotguns[i] !== "Model 1887"){
         var temp = new gunClass (shotguns[i], "Shotgun");
         secondaries.push(temp);
       }
@@ -226,7 +228,7 @@ function setUp() {
       secondaries.push(temp);
       }
     }
-  for(i=0; i<launchers.length;i++){
+  for(let i=0; i<launchers.length;i++){
       var temp = new gunClass (launchers[i], "Launcher");
       secondaries.push(temp);
     }
@@ -235,13 +237,13 @@ function setUp() {
 
 function gunClass (name, type){
     this.name = name;
-    this. type = type;
+    this.type = type;
   };
 
 
   function readArray(xxx){
     for (i=0; i<xxx.length; i++){
-      var temp = xxx[i].name + " "+ xxx[i].type;
+      var temp = xxx[i].name + " " + xxx[i].type;
       console.log(temp);
     }
   }
