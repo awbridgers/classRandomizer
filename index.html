@@ -126,17 +126,16 @@ var AttLocation =[];
       else if (underBelly.indexOf(att)>=0){
         AttLocation[i] = "Under Belly";
       }
-      while(AttLocation[0]=== AttLocation[1]){
-        var att = attType[Math.floor(Math.random() * attType.length)]
-        if(sights.indexOf(att)>=0){
-          AttLocation[i] = "Sight";
-        }
-        else if (underBelly.indexOf(att)>=0){
-          AttLocation[i] = "Under Belly";
-        }
-
-      }
       document.getElementById(element).innerHTML = att;
+  }
+
+  if (attachNum === 2 && AttLocation[0] === AttLocation[1]){
+    let tempAttLoc = AttLocation[0];
+    if (tempAttLoc === "Sight") {
+      AttLocation[1] = "Under Belly";
+    } else {
+      (tempAttLoc === "Sight");
+    }
   }
 
 var secondaryWeapon = secondaries[Math.floor(Math.random() * secondaries.length)];
