@@ -3,13 +3,17 @@ background-color: black;
 color: white;
 }
 table{
-  width:300px;
+    width:900px;
     height:300px;
     position:absolute;
-    margin-left:-150px; /* half of width */
-    margin-top:-150px;  /* half of height */
+    margin-left: -450px; /* half of width */
+    margin-top:  -150px;/* half of height */
     top:30%;
     left:50%
+}
+tr,td{
+  width: 100px;
+  height: 50px;
 }
 
 #submitButton{

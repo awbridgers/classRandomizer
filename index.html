@@ -24,10 +24,10 @@
   <table class = "table">
     <tbody>
       <tr>
-        <td>Primary: </td><td id = "primary">TEST</td><td id = "attach1">TEST</td><td id="attach2">TEST</td>
+        <td>Primary: </td><td id = "primary">TEST</td><td id = "attach0">TEST</td><td id="attach1">TEST</td>
       </tr>
       <tr>
-        <td>Secondary: </td><td id = "secondary">TEST</td><td id = "SECattach1">TEST</td><td id="SECattach2">TEST</td>
+        <td>Secondary: </td><td id = "secondary">TEST</td><td id = "SECattach0">TEST</td><td id="SECattach1">TEST</td>
       </tr>
       <tr>
         <td>Special Grenade: </td><td id = "specGrenade">TEST</td>
@@ -65,8 +65,85 @@ function randomize() {
   setUp();
   //readArray(secondaries);
 
+  //since the number of attatchments depends on whether of not perk 1 is bling, lets start with perks
+  var perkOne = perk1[Math.floor(Math.random() * perk1.length)];
+        if (perkOne === "Bling"){
+          attachNum = 2;
+        }
+        else {
+          attachNum = 1;            //set it back to 1
+          document.getElementById("attach1").innerHTML = "TEST";        //set the attatchment back to default
+          document.getElementById("SECattach1").innerHTML = "TEST";
+        }
+  document.getElementById('perk1').innerHTML = perkOne;
 
+  var perkTwo = perk2[Math.floor(Math.random() * perk2.length)];
+  document.getElementById('perk2').innerHTML = perkTwo;
 
+  var perkThree = perk3[Math.floor(Math.random() * perk3.length)];
+  document.getElementById('perk3').innerHTML = perkThree;
+
+  var dStreak = deathStreak[Math.floor(Math.random() * deathStreak.length)];
+  document.getElementById('deathStreak').innerHTML = dStreak;
+
+  var equip = equipment[Math.floor(Math.random() * equipment.length)];              //Could i just put this equation
+  document.getElementById('equipment').innerHTML = equip;                           // Down here and skip the variable declaration?
+
+  var specGrenade = specialGrenade[Math.floor(Math.random() * specialGrenade.length)];
+  document.getElementById('specGrenade').innerHTML = specGrenade;
+
+  var primaryWeapon = primaries[Math.floor(Math.random() * primaries.length)];
+  document.getElementById("primary").innerHTML = primaryWeapon.name;
+
+  var primaryType = primaryWeapon.type;
+  var attType;
+    if(primaryType === "Assault"){
+      attType = assaultAtt;
+    }
+    else if(primaryType === "SMG"){
+      attType = smgAtt;
+    }
+    else if (primaryType === "LMG"){
+      attType = lmgAtt;
+    }
+    else if (primaryType === "Sniper"){
+      attType = sniperAtt;
+    }
+
+  for(i=0; i<attachNum; i++){
+      var element = "attach" + i;
+      document.getElementById(element).innerHTML = attType[Math.floor(Math.random() * attType.length)]
+  }
+
+var secondaryWeapon = secondaries[Math.floor(Math.random() * secondaries.length)];
+document.getElementById("secondary").innerHTML = secondaryWeapon.name;
+
+var secondaryType = secondaryWeapon.type;
+var secAttType;
+  if(secondaryType === "Pistol"){
+    secAttType = pistolAtt;
+  }
+  else if(secondaryType === "Big Pistol"){
+    secAttType = bigPistolAtt ;
+  }
+  else if (secondaryType === "Shotgun"){
+    secAttType= shotgunAtt;
+  }
+  else if (secondaryType === "Pirate Shotgun"){
+    secAttType = pirateGunAtt;
+  }
+  else if(secondaryType=== "Machine Pistol"){
+    secAttType = machinePistolAtt;
+  }
+  else if (secondaryType === "Launcher"){                             //if Launcher set Attachment back to default
+    document.getElementById("SECattach0").innerHTML = "TEST";
+    document.getElementsById("SECattach1").innerHTML = "TEST";
+  }
+
+  for(i=0; i<attachNum; i++){
+      var element = "SECattach" + i;
+      document.getElementById(element).innerHTML = secAttType[Math.floor(Math.random() * secAttType.length)]
+    }
 
 
 
@@ -98,16 +175,28 @@ function setUp() {
 
 //setup the secondaries ARRAY
   for(i=0; i<pistols.length;i++){
-      var temp = new gunClass (pistols[i], "Pistol");
+    if(pistols[i] != "Colt .44 Magnum" && pistols[i]!= "Desert Eagle"){
+        var temp = new gunClass (pistols[i], "Pistol");
+        secondaries.push(temp);
+      }
+    else{
+      var temp = new gunClass (pistols[i], "Big Pistol");
       secondaries.push(temp);
+      }
     }
   for(i=0; i<machinePistols.length;i++){
       var temp = new gunClass (machinePistols[i], "Machine Pistol");
       secondaries.push(temp);
       }
   for(i=0; i<shotguns.length;i++){
-      var temp = new gunClass (shotguns[i], "Shotgun");
+    if(shotguns[i]!= "Ranger" && shotguns[i] != "Model 1887"){
+        var temp = new gunClass (shotguns[i], "Shotgun");
+        secondaries.push(temp);
+      }
+    else{
+      var temp = new gunClass (shotguns[i], "Pirate Shotgun");
       secondaries.push(temp);
+      }
     }
   for(i=0; i<launchers.length;i++){
       var temp = new gunClass (launchers[i], "Launcher");
@@ -178,7 +267,6 @@ var pistols = [
 "USP .45",
 "Colt .44 Magnum",
 "M9",
-"M1911",
 "Desert Eagle"
 ];
 
@@ -214,8 +302,7 @@ var specialGrenade = [
     "Throwing Knife"
 ];
 
-var attachments = [
-  "Akimbo",
+var assaultAtt = [
   "Grenade Launcher",
   "Red Dot Sight",
   "Silencer",
@@ -225,10 +312,78 @@ var attachments = [
   "Holographic Sight",
   "Heartbeat Sensor",
   "Thermal Scope",
-  "Extended Magazines",
-  "Grip",
-  "Rapid Fire",
+  "Extended Mags"
 ];
+
+var smgAtt =[
+  "Rapid Fire",
+  "Red Dot Sight",
+  "Silencer",
+  "ACOG Scope",
+  "FMJ",
+  "Akimbo",
+  "Holographic Sight",
+  "Thermal Scope",
+  "Extended Mags"
+];
+
+var lmgAtt = [
+  "Grip",
+  "Red Dot Sight",
+  "Silencer",
+  "ACOG Scope",
+  "FMJ",
+  "Holographic Sight",
+  "Heartbeat Sensor",
+  "Thermal Scope",
+  "Extended Mags"
+];
+
+var sniperAtt =[
+  "Silencer",
+  "ACOG Scope",
+  "FMJ",
+  "Hearbeat Sensor",
+  "Thermal",
+  "Extended Mags"
+];
+
+var pistolAtt=[
+  "FMJ",
+  "Silencer",
+  "Akimbo",
+  "Tactical Knife",
+  "Extended Mags"
+];
+
+var bigPistolAtt=[
+  "FMJ",
+  "Akimbo",
+  "Tactical Knife"
+];
+
+var shotgunAtt =[
+  "Red Dot Sight",
+  "Silencer",
+  "Grip",
+  "FMJ",
+  "Holographic Sight",
+  "Extended Mags"
+];
+
+var pirateGunAtt =[
+  "Akimbo",
+  "FMJ"
+];
+
+var machinePistolAtt =[
+  "Red Dot Sight",
+  "Silencer",
+  "FMJ",
+  "Akimbo",
+  "Holographic Sight",
+  "Extended Mags"
+]
 
 var perk1 = [
   "Marathon",
