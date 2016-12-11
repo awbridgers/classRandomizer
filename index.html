@@ -72,6 +72,9 @@ function randomize() {
         if (perkOne === "Bling"){
           attachNum = 2;
         }
+        else if(perkOne === "One Man Army"){
+          document.getElementById("secondary").innerHTML= 'TEST';
+        }
         else {
           attachNum = 1;            //set it back to 1
           document.getElementById("attach1").innerHTML = "TEST";        //set the attatchment back to default
@@ -137,7 +140,9 @@ var AttLocation =[];
   }
 
 var secondaryWeapon = secondaries[Math.floor(Math.random() * secondaries.length)];
-document.getElementById("secondary").innerHTML = secondaryWeapon.name;
+if(perkOne!= "One Man Army"){
+  document.getElementById("secondary").innerHTML = secondaryWeapon.name;
+}
 
 var secondaryType = secondaryWeapon.type;
 var secAttType;
