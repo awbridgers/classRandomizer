@@ -70,8 +70,10 @@ function randomize() {
         if (perkOne === "Bling"){
           attachNum = 2;
         }
-        else if(perkOne === "One Man Army"){
+        else if(perkOne === "One Man Army"){                                     //set secondary and attachments to defualt with 1MA
           document.getElementById("secondary").innerHTML= 'TEST';
+          document.getElementById("SECattach0").innerHTML = "TEST";
+          document.getElementById("SECattach1").innerHTML = "TEST";
         }
         else {
           attachNum = 1;            //set it back to 1
