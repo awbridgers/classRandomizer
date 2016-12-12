@@ -19,93 +19,152 @@
   </head>
 
 <body>
-  <table class = "table">
-    <tbody>
-      <tr>
-        <td>Primary: </td><td id = "primary">TEST</td><td id = "attach0">TEST</td><td id="attach1">TEST</td>
-      </tr>
-      <tr>
-        <td>Secondary: </td><td id = "secondary">TEST</td><td id = "SECattach0">TEST</td><td id="SECattach1">TEST</td>
-      </tr>
-      <tr>
-        <td>Equipment: </td><td id = "equipment">TEST</td>
-      </tr>
-      <tr>
-        <td>Special Grenade: </td><td id = "specGrenade">TEST</td>
-      </tr>
-      <tr>
-        <td>Perk 1: </td><td id = "perk1">TEST</td>
-      </tr>
-      <tr>
-        <td>Perk 2: </td><td id = "perk2">TEST</td>
-      </tr>
-      <tr>
-        <td>Perk 3: </td><td id = "perk3">TEST</td>
-      </tr>
-      <tr>
-        <td>Death Streak: </td><td id = "deathStreak">TEST</td>
-      </tr>
-    </tbody>
-  </table>
+  <div align="center">
+    <table class="table">
+      <tbody>
+        <tr>
+          <td>Perk 1: </td><td id = "perk1">None</td>
+        </tr>
+        <tr>
+          <td>Perk 2: </td><td id = "perk2">None</td>
+        </tr>
+        <tr>
+          <td>Perk 3: </td><td id = "perk3">None</td>
+        </tr>
+        <tr>
+          <td>Primary: </td><td id = "primary">None</td><td id = "attach0">None</td><td id="attach1">None</td>
+        </tr>
+        <tr>
+          <td>Secondary: </td><td id = "secondary">None</td><td id = "SECattach0">None</td><td id="SECattach1">None</td>
+        </tr>
+        <tr>
+          <td>Equipment: </td><td id = "equipment">None</td>
+        </tr>
+        <tr>
+          <td>Special Grenade: </td><td id = "specGrenade">None</td>
+        </tr>
+        <tr>
+          <td>Death Streak: </td><td id = "deathStreak">None</td>
+        </tr>
+      </tbody>
+    </table>
+    <button type="button" id="submitButton"  onclick="randomize()">Randomize!</button>
+  </div>
+</body>
+<script>
+  'use strict';
 
-  <button type="button" id="submitButton"  onclick="randomize()">Randomize!</button></p>
-  <script>
-    'use strict';
+  $(document).ready(() => {
+    setUp();
+  });
 
-    $(document).ready(() => {
-      setUp();
-    });
+  // add classes of guns to the array to be drawn randomly
+  function setUp() {
+    //Eventally this will be added to an "onload event" but for testing its on button click for now
+    //setup the primaries array
+    for (let i=0; i<assaultRifles.length; i++){
+      var temp = new gunClass (assaultRifles[i], "Assault");
+      primaries.push(temp);
+      }
+
+    for (let i=0; i<subMachineGuns.length; i++){
+      var temp = new gunClass (subMachineGuns[i], "SMG");
+      primaries.push(temp);
+      }
+
+    for (let i=0; i<lightMachineGuns.length; i++){
+      var temp = new gunClass (lightMachineGuns[i], "LMG");
+      primaries.push(temp);
+      }
+    for (let i=0; i<sniperRifles.length; i++){
+      var temp = new gunClass (sniperRifles[i], "Sniper");
+      primaries.push(temp);
+      }
+    var temp = new gunClass ("Riot Shield", "Riot Shield");               //Don't forget riot shield!
+      primaries.push(temp);
+
+    //setup the secondaries ARRAY
+    for(let i=0; i<pistols.length;i++){
+      if(pistols[i] !== "Colt .44 Magnum" && pistols[i] !== "Desert Eagle"){
+        var temp = new gunClass (pistols[i], "Pistol");
+        secondaries.push(temp);
+      }
+      else{
+        var temp = new gunClass (pistols[i], "Big Pistol");
+        secondaries.push(temp);
+      }
+    }
+
+    for(let i=0; i<machinePistols.length;i++){
+      var temp = new gunClass (machinePistols[i], "Machine Pistol");
+      secondaries.push(temp);
+    }
+    for(let i=0; i<shotguns.length;i++){
+      if(shotguns[i]!== "Ranger" && shotguns[i] !== "Model 1887"){
+          var temp = new gunClass (shotguns[i], "Shotgun");
+          secondaries.push(temp);
+        }
+      else{
+        var temp = new gunClass (shotguns[i], "Pirate Shotgun");
+        secondaries.push(temp);
+      }
+    }
+    for(let i=0; i<launchers.length;i++){
+      var temp = new gunClass (launchers[i], "Launcher");
+      secondaries.push(temp);
+    }
+  };
 
   //Since each type of gun has different attachments, I suggest we make a class of gun with the
   //the gun name, its type (assaul, sub, etc.) so that we can give it the right attachments.
 
-  //******* DON'T FORGET THE RIOT SHIELD IN THE ARRAY OF ALL THE PRIMARIES*******
 
-  var primaries =[];
-  var secondaries =[];
-  var attachNum =1;
-function randomize() {
-  //readArray(secondaries);
+  var primaries = [];
+  var secondaries = [];
 
-  //since the number of attatchments depends on whether of not perk 1 is bling, lets start with perks
-  var perkOne = perk1[Math.floor(Math.random() * perk1.length)];
-        if (perkOne === "Bling"){
-          attachNum = 2;
-        }
-        else if(perkOne === "One Man Army"){
-          document.getElementById("secondary").innerHTML= 'TEST';
-        }
-        else {
-          attachNum = 1;            //set it back to 1
-          document.getElementById("attach1").innerHTML = "TEST";        //set the attatchment back to default
-          document.getElementById("SECattach1").innerHTML = "TEST";
-        }
-  document.getElementById('perk1').innerHTML = perkOne;
+  function randomize() {
+    //readArray(secondaries);
 
-  var perkTwo = perk2[Math.floor(Math.random() * perk2.length)];
-  document.getElementById('perk2').innerHTML = perkTwo;
+    //since the number of attatchments depends on whether of not perk 1 is bling, lets start with perks
 
-  var perkThree = perk3[Math.floor(Math.random() * perk3.length)];
-  document.getElementById('perk3').innerHTML = perkThree;
+    // set all attachments to none
+    $("#attach1").html('None');
+    $("#attach2").html('None');
+    $("#SECattach1").html('None');
+    $("#SECattach2").html('None');
 
-  var dStreak = deathStreak[Math.floor(Math.random() * deathStreak.length)];
-  document.getElementById('deathStreak').innerHTML = dStreak;
+    var perkOne = perk1[Math.floor(Math.random() * perk1.length)];
+    var attachNum = perkOne === 'Bling' ? 2 : 1; // fancy code for setting it to 2 for bling, 1 otherwise
+    if(perkOne === "One Man Army"){
+      $("#secondary").html('None');
+    }
+    $('#perk1').html(perkOne);
 
-  var equip = equipment[Math.floor(Math.random() * equipment.length)];              //Could i just put this equation
-  document.getElementById('equipment').innerHTML = equip;                           // Down here and skip the variable declaration?
+    var perkTwo = perk2[Math.floor(Math.random() * perk2.length)];
+    $('#perk2').html(perkTwo);
 
-  var specGrenade = specialGrenade[Math.floor(Math.random() * specialGrenade.length)];
-  document.getElementById('specGrenade').innerHTML = specGrenade;
+    var perkThree = perk3[Math.floor(Math.random() * perk3.length)];
+    $('#perk3').html(perkThree);
 
-  var primaryWeapon = primaries[Math.floor(Math.random() * primaries.length)];
-  document.getElementById("primary").innerHTML = primaryWeapon.name;
+    var dStreak = deathStreak[Math.floor(Math.random() * deathStreak.length)];
+    $('#deathStreak').html(dStreak);
 
-  var primaryType = primaryWeapon.type;
-  var attType;
-    if(primaryType === "Assault"){
+    var equip = equipment[Math.floor(Math.random() * equipment.length)];              //Could i just put this equation
+    $('#equipment').html(equip);                           // Down here and skip the variable declaration?
+
+    var specGrenade = specialGrenade[Math.floor(Math.random() * specialGrenade.length)];
+    $('#specGrenade').html(specGrenade);
+
+    var primaryWeapon = primaries[Math.floor(Math.random() * primaries.length)];
+    // primaryWeapon = new gunClass ("Riot Shield", "Riot Shield");
+    $("#primary").html(primaryWeapon.name);
+
+    var primaryType = primaryWeapon.type;
+    var attType;
+    if (primaryType === "Assault"){
       attType = assaultAtt;
     }
-    else if(primaryType === "SMG"){
+    else if (primaryType === "SMG"){
       attType = smgAtt;
     }
     else if (primaryType === "LMG"){
@@ -115,125 +174,79 @@ function randomize() {
       attType = sniperAtt;
     }
 
-var AttLocation =[];
+    let attLocation;
 
-  for(let i=0; i<attachNum; i++){
-      var element = "attach" + i;
-      var att = attType[Math.floor(Math.random() * attType.length)]
-      if(sights.indexOf(att)>=0){
-        AttLocation[i] = "Sight";
-      }
-      else if (underBelly.indexOf(att)>=0){
-        AttLocation[i] = "Under Belly";
-      }
-      document.getElementById(element).innerHTML = att;
-  }
+    if (primaryWeapon.name !== "Riot Shield") {
+      var att1 = attType[Math.floor(Math.random() * attType.length)];
+      $('#attach0').html(att1);
 
-  if (attachNum === 2 && AttLocation[0] === AttLocation[1]){
-    let tempAttLoc = AttLocation[0];
-    if (tempAttLoc === "Sight") {
-      AttLocation[1] = "Under Belly";
+      if(sights.indexOf(att1) !== -1){
+        attLocation = "Sight";
+      }
+      else if (underBelly.indexOf(att1) !== -1){
+        attLocation = "Under Belly";
+      }
+
+      if (attachNum === 2){
+        if (attLocation === "Sight") {
+          $('#attach1').html(underBelly[Math.floor(Math.random() * underBelly.length)]);
+        } else {
+          $('#attach1').html(sights[Math.floor(Math.random() * sights.length)]);
+        }
+      }
     } else {
-      (tempAttLoc === "Sight");
-    }
-  }
-
-var secondaryWeapon = secondaries[Math.floor(Math.random() * secondaries.length)];
-if(perkOne!= "One Man Army"){
-  document.getElementById("secondary").innerHTML = secondaryWeapon.name;
-}
-
-var secondaryType = secondaryWeapon.type;
-var secAttType;
-  if(secondaryType === "Pistol"){
-    secAttType = pistolAtt;
-  }
-  else if(secondaryType === "Big Pistol"){
-    secAttType = bigPistolAtt ;
-  }
-  else if (secondaryType === "Shotgun"){
-    secAttType= shotgunAtt;
-  }
-  else if (secondaryType === "Pirate Shotgun"){
-    secAttType = pirateGunAtt;
-  }
-  else if(secondaryType=== "Machine Pistol"){
-    secAttType = machinePistolAtt;
-  }
-  else if (secondaryType === "Launcher"){                             //if Launcher set Attachment back to default
-    document.getElementById("SECattach0").innerHTML = "TEST";
-    document.getElementById("SECattach1").innerHTML = "TEST";
-  }
-
-
-  if (secondaryType !== "Launcher") {
-    for(let i=0; i<attachNum; i++){
-        var element = "SECattach" + i;
-        document.getElementById(element).innerHTML = secAttType[Math.floor(Math.random() * secAttType.length)]
-      }
-  }
-
-
-
-};
-
-
-
-function setUp() {
-  //Eventally this will be added to an "onload event" but for testing its on button click for now
-  //setup the primaries array
-  for(let i=0; i<assaultRifles.length;i++){
-      var temp = new gunClass (assaultRifles[i], "Assault");
-      primaries.push(temp);
-      }
-  for(let i=0; i<subMachineGuns.length;i++){
-      var temp = new gunClass (subMachineGuns[i], "SMG");
-      primaries.push(temp);
-      }
-  for(let i=0; i<lightMachineGuns.length;i++){
-      var temp = new gunClass (lightMachineGuns[i], "LMG");
-      primaries.push(temp);
-      }
-  for(let i=0; i<sniperRifles.length;i++){
-      var temp = new gunClass (sniperRifles[i], "Sniper");
-      primaries.push(temp);
-      }
-  var temp = new gunClass ("Riot Shield", "Riot Shield");               //Don't forget riot shield!
-    primaries.push(temp);
-
-//setup the secondaries ARRAY
-  for(let i=0; i<pistols.length;i++){
-    if(pistols[i] != "Colt .44 Magnum" && pistols[i]!= "Desert Eagle"){
-        var temp = new gunClass (pistols[i], "Pistol");
-        secondaries.push(temp);
-      }
-    else{
-      var temp = new gunClass (pistols[i], "Big Pistol");
-      secondaries.push(temp);
-      }
-    }
-  for(let i=0; i<machinePistols.length;i++){
-      var temp = new gunClass (machinePistols[i], "Machine Pistol");
-      secondaries.push(temp);
-      }
-  for(let i=0; i<shotguns.length;i++){
-    if(shotguns[i]!== "Ranger" && shotguns[i] !== "Model 1887"){
-        var temp = new gunClass (shotguns[i], "Shotgun");
-        secondaries.push(temp);
-      }
-    else{
-      var temp = new gunClass (shotguns[i], "Pirate Shotgun");
-      secondaries.push(temp);
-      }
-    }
-  for(let i=0; i<launchers.length;i++){
-      var temp = new gunClass (launchers[i], "Launcher");
-      secondaries.push(temp);
+      $('#attach0').html('None');
+      $('#attach1').html('None');
     }
 
-};
+    var secondaryWeapon = secondaries[Math.floor(Math.random() * secondaries.length)];
+    if (perkOne !== "One Man Army"){
+      $("#secondary").html(secondaryWeapon.name);
+    }
 
-function gunClass (name, type){
+    var secondaryType = secondaryWeapon.type;
+    var secAttType;
+    if(secondaryType === "Pistol"){
+      secAttType = pistolAtt;
+    }
+    else if(secondaryType === "Big Pistol"){
+      secAttType = bigPistolAtt ;
+    }
+    else if (secondaryType === "Shotgun"){
+      secAttType= shotgunAtt;
+    }
+    else if (secondaryType === "Pirate Shotgun"){
+      secAttType = pirateGunAtt;
+    }
+    else if(secondaryType=== "Machine Pistol"){
+      secAttType = machinePistolAtt;
+    }
+
+    if (secondaryType === "Launcher" || perkOne === 'One Man Army'){                             //if Launcher set Attachment back to default
+      $("#SECattach0").html("None");
+      $("#SECattach1").html("None");
+    } else {
+      let secAtt1 = secAttType[Math.floor(Math.random() * secAttType.length)];
+      $('#SECattach0').html(secAtt1);
+      if (attachNum === 2) {
+        let newSecArray = Array.from(secAttType);
+        let index = secAttType.indexOf(secAtt1);
+        newSecArray.splice(index, 1);
+        if (secAtt1.indexOf("Sight") !== -1 || secAtt1 === "Akimbo" || secAtt1 === "Tactical Knife") {
+          newSecArray.forEach((attachment) => {
+            let ind = newSecArray.indexOf(attachment);
+            if (attachment.indexOf("Sight") !== -1 || attachment === "Akimbo" || attachment === "Tactical Knife") {
+              newSecArray.splice(ind, 1);
+            }
+          });
+        }
+        $('#SECattach1').html(newSecArray[Math.floor(Math.random() * newSecArray.length)]);
+      }
+    }
+
+  };
+
+  function gunClass (name, type){
     this.name = name;
     this.type = type;
   };
@@ -257,64 +270,64 @@ function gunClass (name, type){
     "ACR",
     "F2000",
     "AK-47"
-];
+  ];
 
-var subMachineGuns = [
+  var subMachineGuns = [
     "Mini Uzi",
     "MP5K",
     "UMP 45",
     "Vector",
     "P90"
-];
+  ];
 
-var sniperRifles = [
-"Intervention",
-"Barrett",
-"WA2000",
-"M21 EBR"
-];
+  var sniperRifles = [
+    "Intervention",
+    "Barrett",
+    "WA2000",
+    "M21 EBR"
+  ];
 
-var lightMachineGuns = [
-"L86 LSW",
-"RPD",
-"MG4",
-"AUG HBAR",
-"M240"
-];
+  var lightMachineGuns = [
+    "L86 LSW",
+    "RPD",
+    "MG4",
+    "AUG HBAR",
+    "M240"
+  ];
 
-var shotguns = [
-"SPAS-12",
-"AA-12",
-"Striker",
-"Ranger",
-"M1014",
-"Model 1887"
-];
+  var shotguns = [
+    "SPAS-12",
+    "AA-12",
+    "Striker",
+    "Ranger",
+    "M1014",
+    "Model 1887"
+  ];
 
-var pistols = [
-"USP .45",
-"Colt .44 Magnum",
-"M9",
-"Desert Eagle"
-];
+  var pistols = [
+    "USP .45",
+    "Colt .44 Magnum",
+    "M9",
+    "Desert Eagle"
+  ];
 
-var machinePistols = [
-"Glock 18",
-"PP-2000",
-"TMP",
-"M93 Raffica",
-];
+  var machinePistols = [
+    "Glock 18",
+    "PP-2000",
+    "TMP",
+    "M93 Raffica",
+  ];
 
-var launchers = [
-  "AT4",
-  "Thumper",
-  "Stinger",
-  "RPG",
-  "Javelin",
-];
+  var launchers = [
+    "AT4",
+    "Thumper",
+    "Stinger",
+    "RPG",
+    "Javelin",
+  ];
 
 
-var specialGrenade = [
+  var specialGrenade = [
     "Flashbang",
     "Stun Grenade",
     "Smoke Grenade",
@@ -328,133 +341,131 @@ var specialGrenade = [
     "Tactical Insertion",
     "Blast Shield",
     "Throwing Knife"
-];
+  ];
 
-var assaultAtt = [
-  "Grenade Launcher",
-  "Red Dot Sight",
-  "Silencer",
-  "ACOG Scope",
-  "FMJ",
-  "Shotgun",
-  "Holographic Sight",
-  "Heartbeat Sensor",
-  "Thermal Scope",
-  "Extended Mags"
-];
+  var assaultAtt = [
+    "Grenade Launcher",
+    "Red Dot Sight",
+    "Silencer",
+    "ACOG Scope",
+    "FMJ",
+    "Shotgun",
+    "Holographic Sight",
+    "Heartbeat Sensor",
+    "Thermal Scope",
+    "Extended Mags"
+  ];
 
-var smgAtt =[
-  "Rapid Fire",
-  "Red Dot Sight",
-  "Silencer",
-  "ACOG Scope",
-  "FMJ",
-  "Akimbo",
-  "Holographic Sight",
-  "Thermal Scope",
-  "Extended Mags"
-];
+  var smgAtt =[
+    "Rapid Fire",
+    "Red Dot Sight",
+    "Silencer",
+    "ACOG Scope",
+    "FMJ",
+    "Akimbo",
+    "Holographic Sight",
+    "Thermal Scope",
+    "Extended Mags"
+  ];
 
-var lmgAtt = [
-  "Grip",
-  "Red Dot Sight",
-  "Silencer",
-  "ACOG Scope",
-  "FMJ",
-  "Holographic Sight",
-  "Heartbeat Sensor",
-  "Thermal Scope",
-  "Extended Mags"
-];
+  var lmgAtt = [
+    "Grip",
+    "Red Dot Sight",
+    "Silencer",
+    "ACOG Scope",
+    "FMJ",
+    "Holographic Sight",
+    "Heartbeat Sensor",
+    "Thermal Scope",
+    "Extended Mags"
+  ];
 
-var sniperAtt =[
-  "Silencer",
-  "ACOG Scope",
-  "FMJ",
-  "Hearbeat Sensor",
-  "Thermal",
-  "Extended Mags"
-];
+  var sniperAtt =[
+    "Silencer",
+    "ACOG Scope",
+    "FMJ",
+    "Hearbeat Sensor",
+    "Thermal",
+    "Extended Mags"
+  ];
 
-var pistolAtt=[
-  "FMJ",
-  "Silencer",
-  "Akimbo",
-  "Tactical Knife",
-  "Extended Mags"
-];
+  var pistolAtt=[
+    "FMJ",
+    "Silencer",
+    "Akimbo",
+    "Tactical Knife",
+    "Extended Mags"
+  ];
 
-var bigPistolAtt=[
-  "FMJ",
-  "Akimbo",
-  "Tactical Knife"
-];
+  var bigPistolAtt=[
+    "FMJ",
+    "Akimbo",
+    "Tactical Knife"
+  ];
 
-var shotgunAtt =[
-  "Red Dot Sight",
-  "Silencer",
-  "Grip",
-  "FMJ",
-  "Holographic Sight",
-  "Extended Mags"
-];
+  var shotgunAtt =[
+    "Red Dot Sight",
+    "Silencer",
+    "Grip",
+    "FMJ",
+    "Holographic Sight",
+    "Extended Mags"
+  ];
 
-var pirateGunAtt =[
-  "Akimbo",
-  "FMJ"
-];
+  var pirateGunAtt =[
+    "Akimbo",
+    "FMJ"
+  ];
 
-var machinePistolAtt =[
-  "Red Dot Sight",
-  "Silencer",
-  "FMJ",
-  "Akimbo",
-  "Holographic Sight",
-  "Extended Mags"
-]
+  var machinePistolAtt =[
+    "Red Dot Sight",
+    "Silencer",
+    "FMJ",
+    "Akimbo",
+    "Holographic Sight",
+    "Extended Mags"
+  ]
 
-var perk1 = [
-  "Marathon",
-  "Sleight of Hand",
-  "Scavenger",
-  "Bling",
-  "One Man Army"
-];
+  var perk1 = [
+    "Marathon",
+    "Sleight of Hand",
+    "Scavenger",
+    "Bling",
+    "One Man Army"
+  ];
 
-var perk2 = [
-  "Stopping Power",
-  "Danger Close",
-  "Cold Blooded",
-  "Hardline",
-  "Lightweight"
-];
+  var perk2 = [
+    "Stopping Power",
+    "Danger Close",
+    "Cold Blooded",
+    "Hardline",
+    "Lightweight"
+  ];
 
-var perk3 = [
-  "Ninja",
-  "Scrambler",
-  "Steady Aim",
-  "Last Stand",
-  "Commando"
-];
+  var perk3 = [
+    "Ninja",
+    "Scrambler",
+    "Steady Aim",
+    "Last Stand",
+    "Commando"
+  ];
 
-var deathStreak = [
-  "Copy Cat",
-  "Painkillers",
-  "Martyrdom",
-  "Final Stand"
-];
+  var deathStreak = [
+    "Copy Cat",
+    "Painkillers",
+    "Martyrdom",
+    "Final Stand"
+  ];
 
-var sights = [
-  "Red Dot Sight",
-  "ACOG Scope",
-  "Thermal Scope",
-  "Holographic Sight"
-];
+  var sights = [
+    "Red Dot Sight",
+    "ACOG Scope",
+    "Thermal Scope",
+    "Holographic Sight"
+  ];
 
-var underBelly = [
-  "Grenade Launcher",
-  "Shotgun"
-];
-
-
+  var underBelly = [
+    "Grenade Launcher",
+    "Shotgun"
+  ];
 </script>
