@@ -1,32 +1,24 @@
 body{
-background: url("wallpaper.png") no-repeat;
+background: url("wallpaper.jpg") no-repeat;
 background-size: cover;
 color: white;
 }
 table{
-    width:900px;
-    height:300px;
-    position:absolute;
-    margin-left: -450px; /* half of width */
-    margin-top:  -150px;/* half of height */
-    top:30%;
-    left:50%
+    width:60%;
+    height:60%;
+    border-collapse: collapse;
 }
+
+table, th, td {
+    border: 1px solid black;
+}
+
 tr,td{
   width: 100px;
   height: 50px;
 }
 
-#submitButton{
-  margin: auto;
-  position: absolute;
-  top: 70%;
-  left: 50%;
-}
-#searchType{
-  margin: auto;
-  position: absolute;
-  top: 44%;
-  left: 49.65%;
-  width: 75px;
+button{
+  background-color: solid black;
+  margin:auto;
 }
